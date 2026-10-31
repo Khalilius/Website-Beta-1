@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Amodu Gutierrez Real Estate Group</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Manrope:wght@300;400;600&display=swap');
+
+        :root {
+            --navy-dark: #00132b;
+            --navy-light: #002554;
+            --gold-start: #FFDE00;
+            --gold-end: #F8961F;
+            --text-light: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100dvh;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-light) 100%);
+            color: var(--text-light);
+            font-family: 'Manrope', sans-serif;
+            position: relative;
+        }
+
+        /* Topographic background */
+        .topo-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.15;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c13.866 0 25.36 11.297 25.413 25.15 0 13.854-11.455 25.083-25.318 25.15C-2.736 68.353-14 57.124-14 43.27c0-13.853 11.229-25.082 25-25.27zm0-2c-15.01 0-27.184 12.175-27.184 27.185S-4.01 70.369 11 70.369c15.01 0 27.184-12.174 27.184-27.184C38.184 28.175 26.01 16 11 16z' fill='%23ffffff' fill-rule='evenodd' opacity='0.5'/%3E%3C/svg%3E");
+            background-size: 300px;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100dvh;
+            padding: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Branding & Monogram */
+        .header {
+            text-align: center;
+            animation: fadeIn 1s ease-out 0.2s backwards;
+            margin-bottom: 1rem;
+        }
+        .monogram {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--gold-start) 0%, var(--gold-end) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        /* Headshot Area */
+        .hero-headshot {
+            flex-shrink: 0;
+            height: 35dvh;
+            width: 100%;
+            border-radius: 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 1s ease-out 0.4s backwards;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        
+        .hero-headshot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            /* If image doesn't load, the glass bg shows */
+        }
+
+        .hero-headshot .overlay-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, var(--navy-dark) 0%, transparent 100%);
+            padding: 2rem 1rem 1rem;
+            text-align: center;
+        }
+
+        .title-main {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Concierge Actions */
+        .actions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            animation: fadeIn 1s ease-out 0.6s backwards;
+        }
+
+        .action-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.25rem 1.5rem;
+            color: white;
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--gold-start);
+            transform: translateY(-2px);
+        }
+
+        .action-icon {
+            font-size: 1.25rem;
+            background: linear-gradient(135deg, var(--gold-start) 0%, var(--gold-end) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Carousel Area */
+        .carousel-section {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 1rem;
+            animation: fadeIn 1s ease-out 0.8s backwards;
+            min-height: 0;
+        }
+
+        .carousel-header {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-style: italic;
+            text-align: center;
+            background: linear-gradient(135deg, var(--gold-start) 0%, var(--gold-end) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .carousel-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 1rem;
+            padding-bottom: 0.5rem;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-card {
+            scroll-snap-align: start;
+            flex: 0 0 85%;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+        }
+
+        .card-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-price {
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--gold-start);
+            margin-bottom: 0.25rem;
+        }
+
+        .card-address {
+            font-size: 0.85rem;
+            line-height: 1.3;
+            opacity: 0.9;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="topo-bg"></div>
+    <div class="container">
+        
+        <div class="header">
+            <div class="monogram">AG</div>
+        </div>
+
+        <div class="hero-headshot">
+            <img src="image.png" alt="Khalil Amodu and Zaira Gutierrez">
+            <div class="overlay-text">
+                <h1 class="title-main">Amodu Gutierrez</h1>
+                <p class="subtitle">Real Estate Group</p>
+            </div>
+        </div>
+
+        <div class="actions-container">
+            <a href="#" class="action-btn">
+                <span>Buying / Selling</span>
+                <span class="action-icon">→</span>
+            </a>
+            <a href="#" class="action-btn">
+                <span>Exploring</span>
+                <span class="action-icon">⚲</span>
+            </a>
+        </div>
+
+        <div class="carousel-section">
+            <h2 class="carousel-header">Featured Open Houses</h2>
+            <div class="carousel-track" id="open-house-track">
+                <!-- Javascript will populate this -->
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        // --- YOUR OPEN HOUSE CONTROL PANEL ---
+        const openHouses = [
+            {
+                address: "548 Echo Ridge Court, Reno NV",
+                price: "$1,299,000",
+                image: "https://via.placeholder.com/150/002554/FFFFFF?text=Echo+Ridge", 
+                link: "#"
+            },
+            {
+                address: "2711 Sun Chaser, Reno NV",
+                price: "$1,289,000",
+                image: "https://via.placeholder.com/150/002554/FFFFFF?text=Sun+Chaser", 
+                link: "#"
+            },
+            {
+                address: "E Quail St, Sparks NV",
+                price: "$465,000",
+                image: "https://via.placeholder.com/150/002554/FFFFFF?text=E+Quail", 
+                link: "#"
+            }
+        ];
+
+        // Auto-build the carousel
+        const track = document.getElementById('open-house-track');
+        openHouses.forEach(house => {
+            const card = document.createElement('a');
+            card.className = 'carousel-card';
+            card.href = house.link;
+            card.innerHTML = `
+                <img src="${house.image}" alt="${house.address}" class="card-img">
+                <div class="card-info">
+                    <div class="card-price">${house.price}</div>
+                    <div class="card-address">${house.address}</div>
+                </div>
+            `;
+            track.appendChild(card);
+        });
+    </script>
+</body>
+</html>
